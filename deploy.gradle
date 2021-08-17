@@ -1,0 +1,60 @@
+//apply plugin: 'maven'
+//
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: rootProject.ext.url) {
+//                authentication(userName: rootProject.ext.username, password: rootProject.ext.password)
+//            }
+//
+//            pom.project {
+//                name project.name
+//                version project.version
+//                artifactId project.name
+//                groupId project.group
+//                packaging 'jar'
+//                description 'knx-core'
+//
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://wiki.bidostar.com/pages/viewpage.action?pageId=3943695'
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+apply plugin: 'maven-publish'
+
+def isReleaseBuild() {
+    return version.endsWith("SNAPSHOT") == false
+}
+
+def getRepository() {
+    if (isReleaseBuild()) {
+        return rootProject.repositories.findByName('release-mvn')
+    } else {
+        return rootProject.repositories.findByName('snapshot-mvn')
+    }
+}
+
+publishing {
+    publications {
+        publishProject(MavenPublication){
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            def repo = getRepository()
+            url repo.url
+            credentials {
+                username repo.credentials.username
+                password repo.credentials.password
+            }
+        }
+    }
+}
