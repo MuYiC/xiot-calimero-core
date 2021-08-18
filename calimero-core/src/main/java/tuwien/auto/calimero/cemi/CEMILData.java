@@ -88,7 +88,8 @@ public class CEMILData implements CEMI
 	// repeat priority ack confirm hop count (and broadcast in subtype)
 
 	/**
-	 * Control field 1, the lower 8 bits contain control information.
+	 * Control field 1, the lower 8 bits contain control information. P
+	 * riority can get from this,eg :111 11 0 0. can read from wireshark data CMEI: Ctr1l
 	 */
 	protected int ctrl1;
 

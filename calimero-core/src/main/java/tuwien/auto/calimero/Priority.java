@@ -72,7 +72,7 @@ public enum Priority {
 	/**
 	 * Returns the priority of the supplied priority value code.
 	 *
-	 * @param value priority value code, 0 &lt;= value &lt;= 3
+	 * @param value priority value code, 0 &lt;= value &lt;= 3 Normal=01;LOW=11
 	 * @return the corresponding priority
 	 */
 	public static Priority get(final int value)

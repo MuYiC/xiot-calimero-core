@@ -92,7 +92,11 @@ public class ProcessCommunicatorImpl implements ProcessCommunicator
 			final byte[] apdu = f.getPayload();
 			// can't be a process communication indication if too short
 			if (apdu.length < 2)
+			{
+				logger.debug("the data length smaller than 2");
 				return;
+			}
+
 			final int svc = DataUnitBuilder.getAPDUService(apdu);
 			logger.debug("svc: {}",svc);
 			// Note: even if this is a read response we have waited for,
@@ -117,6 +121,7 @@ public class ProcessCommunicatorImpl implements ProcessCommunicator
 
 		private void fireGroupReadWrite(final CEMILData f, final byte[] asdu, final int svc, final boolean optimized)
 		{
+			logger.debug("fireGroupReadWrite");
 			final ProcessEvent e = new ProcessEvent(ProcessCommunicatorImpl.this, f.getSource(),
 					(GroupAddress) f.getDestination(), svc, asdu, optimized);
 			final Consumer<? super ProcessListener> c;

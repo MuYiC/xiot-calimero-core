@@ -124,6 +124,7 @@ public class EventListeners<T>
 		final List<T> list = listeners();
 		for (final T l : list) {
 			try {
+				logger.debug("eventListeners fire");
 				c.accept(l);
 			}
 			catch (final RuntimeException rte) {
